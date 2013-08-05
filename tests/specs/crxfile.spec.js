@@ -27,11 +27,20 @@ describe('.crx file', function() {
       expect(crxFile.manifest.name).to.eql('Dummy extension');
     });
   });
+  it('should generate the extension ID', function() {
+    crxFile.unpack(function() {
+    },
+    function() {
+      expect(crxFile.extensionID.length).to.eql(32);
+    });
+  });
   it('should interpret localized strings', function() {
     crxFile.unpack(function() {
     },
     function() {
+      var name = crxFile.manifest.name;
       var desc = crxFile.manifest.description;
+      expect(crxFile.localizeMessage(name)).to.eql('Dummy extension');
       expect(crxFile.localizeMessage(desc)).to.eql('Your extension description here.');
     });
   });

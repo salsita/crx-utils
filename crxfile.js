@@ -19,7 +19,7 @@
     return header;
   }
 
-  function generateExtensionID() {
+  function generateExtensionID(publicKey) {
     var sha256 = crypto.createHash('sha256');
     sha256.update(publicKey, 'binary');
     var sha = sha256.digest('hex').substr(0, 32);
@@ -42,7 +42,7 @@
     this._data = data;
     this._header = null;
     this._manifest = null;
-    this._extensionId = null;
+    this._extensionID = null;
     this._locales = {};
   }
 
@@ -55,15 +55,23 @@
       return this._manifest;
     },
 
+    get extensionID() {
+      return this._extensionID;
+    },
+
     localizeMessage: function(msg, locale) {
       locale = locale || DEFAULT_LOCALE;
       if (_s.startsWith(msg, MESSAGE_PREFIX)) {
         return this._locales[locale][msg.substr(MESSAGE_PREFIX.length)].message;
       }
+      else {
+        return msg;
+      }
     },
 
     unpack: function(fileCallback, doneCallback) {
       this._header = parseCRXHeader(this._data);
+      this._extensionID = generateExtensionID(this._header.publicKey);
       var zip = new Zip(this._data.substr(this._header.length));
       var manifest;
 
