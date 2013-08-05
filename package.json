@@ -10,7 +10,7 @@
   "main": "crxfile.js",
   "devDependencies": {
     "underscore.string": "~2.3.3",
-    "node-zip": "~1.0.1",
+    "node-zip": ">=1.0.1",
     "chai": "~1.7.2",
     "mocha": "~1.12.0"
   }
