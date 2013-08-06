@@ -1,10 +1,11 @@
 (function() {
-	var path = require('path'),
+  var path = require('path'),
     crypto = require('crypto'),
     _s = require('underscore.string'),
     Zip = require('node-zip');
 
   var MESSAGE_PREFIX = '__MSG_',
+    MESSAGE_SUFFIX = '__',
     DEFAULT_LOCALE = 'en';
 
   function parseCRXHeader(data) {
@@ -61,8 +62,9 @@
 
     localizeMessage: function(msg, locale) {
       locale = locale || DEFAULT_LOCALE;
-      if (_s.startsWith(msg, MESSAGE_PREFIX)) {
-        return this._locales[locale][msg.substr(MESSAGE_PREFIX.length)].message;
+      if (_s.startsWith(msg, MESSAGE_PREFIX) && _s.endsWith(msg, MESSAGE_SUFFIX)) {
+        var key = msg.substring(MESSAGE_PREFIX.length, msg.length-MESSAGE_SUFFIX.length);
+        return this._locales[locale][key].message;
       }
       else {
         return msg;
