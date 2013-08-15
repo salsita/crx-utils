@@ -85,7 +85,7 @@
           this._manifest = JSON.parse(zipEntry.asText());
         }
         else if (_s.endsWith(filename, 'messages.json')) {
-          var segments = filename.split(path.sep);
+          var segments = filename.split('/');
           if (3 === segments.length &&
             '_locales' === segments[0] &&
             'messages.json' === segments[2]) {
