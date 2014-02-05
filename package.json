@@ -1,0 +1,20 @@
+{
+  "name": "crx-utils",
+  "version": "0.1.0",
+  "description": "Utilities for working with Chrome extension (.crx) files",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:salsita/crx-utils.git"
+  },
+  "author": "Salsita Software",
+  "main": "crxfile.js",
+  "dependencies": {
+    "underscore.string": "~2.3.3",
+    "node-zip": "~1.0.1"
+  },
+  "devDependencies": {
+    "chai": "~1.7.2",
+    "mocha": "~1.12.0",
+    "jsonminify": "~0.2.2"
+  }
+}
