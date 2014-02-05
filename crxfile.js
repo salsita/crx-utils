@@ -2,6 +2,7 @@
   var path = require('path'),
     crypto = require('crypto'),
     _s = require('underscore.string'),
+    jsonminify = require('jsonminify'),
     Zip = require('node-zip');
 
   var MESSAGE_PREFIX = '__MSG_',
@@ -82,14 +83,14 @@
         var filename = zipEntry.name;
         fileCallback(filename, zipEntry.asBinary());
         if ('manifest.json' === filename) {
-          this._manifest = JSON.parse(zipEntry.asText());
+          this._manifest = JSON.parse(jsonminify(zipEntry.asText()));
         }
         else if (_s.endsWith(filename, 'messages.json')) {
           var segments = filename.split('/');
           if (3 === segments.length &&
             '_locales' === segments[0] &&
             'messages.json' === segments[2]) {
-            this._locales[segments[1]] = JSON.parse(zipEntry.asText());
+            this._locales[segments[1]] = JSON.parse(jsonminify(zipEntry.asText()));
           }
         }
       }
